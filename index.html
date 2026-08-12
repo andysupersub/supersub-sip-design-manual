@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIP Panel Design Manual — Supersub</title>
+<meta name="description" content="Interactive SIP panel connection detail manual — sill, head, jamb, base, corners, penetrations, roof and foundation details, built to NZBC E2/AS1." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --color-navy:   #011648;
+    --color-blue:   #276ce9;
+    --color-mist:   #f0f4fd;
+    --color-white:  #ffffff;
+    --color-navy-soft: rgba(1,22,72,0.06);
+    --color-navy-border: rgba(1,22,72,0.10);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    font-weight:400;
+    color:var(--color-navy);
+    background:var(--color-white);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+
+  h1,h2,h3{ font-weight:500; letter-spacing:-0.05em; margin:0; }
+  h4,h5,h6{ font-weight:200; letter-spacing:-0.02em; margin:0; }
+  p{ font-weight:200; line-height:160%; margin:0; }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--color-navy);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:1180px; margin:0 auto;
+  }
+  .nav-brand{ display:flex; align-items:center; gap:14px; }
+  .nav-brand svg{ height:26px; width:auto; }
+  .nav-divider{ width:1px; height:22px; background:rgba(255,255,255,0.2); }
+  .nav-title{ color:#fff; font-size:14px; font-weight:500; letter-spacing:-0.02em; }
+  .nav-title span{ display:block; font-weight:200; font-size:11px; letter-spacing:0.06em; opacity:0.6; text-transform:uppercase; margin-top:2px;}
+  .nav-cta{
+    font-size:14px; font-weight:500; color:#fff; border:1.5px solid rgba(255,255,255,0.35);
+    padding:9px 18px; border-radius:7px; transition:opacity .2s ease, transform .15s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{ opacity:.8; transform:translateY(-1px); border-color:rgba(255,255,255,0.6); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--color-navy);
+    color:#fff;
+    padding:56px 0 44px;
+  }
+  .eyebrow{
+    font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:#8fa8e0; font-weight:400; margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:40px; color:#fff; max-width:720px;
+  }
+  .hero p.lead{
+    margin-top:16px; max-width:640px; font-size:16px; color:rgba(255,255,255,0.72);
+    font-weight:200;
+  }
+  .hero-meta{
+    margin-top:22px; display:flex; flex-wrap:wrap; gap:10px 18px; font-size:13px;
+    color:rgba(255,255,255,0.55); font-weight:200;
+  }
+  .hero-meta b{ color:rgba(255,255,255,0.85); font-weight:500; }
+
+  /* ---------- GLANCE BADGES ---------- */
+  .glance{ background:var(--color-mist); padding:36px 0 40px; }
+  .glance .section-label{
+    font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#5a6f9e;
+    font-weight:500; margin-bottom:16px;
+  }
+  .badge-grid{ display:flex; flex-wrap:wrap; gap:12px; }
+  .badge{
+    display:flex; align-items:center; gap:10px;
+    background:#fff; border:1px solid var(--color-navy-border);
+    border-radius:999px; padding:11px 18px 11px 14px;
+    font-size:14px; font-weight:500; letter-spacing:-0.01em; color:var(--color-navy);
+    box-shadow:0 2px 8px rgba(1,22,72,0.04);
+  }
+  .badge svg{ width:17px; height:17px; color:var(--color-blue); flex-shrink:0; }
+
+  /* ---------- GRID SECTION ---------- */
+  .catalog{ padding:52px 0 72px; }
+  .catalog-head{
+    display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    margin-bottom:26px;
+  }
+  .catalog-head .section-label{
+    font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#5a6f9e; font-weight:500;
+  }
+  .catalog-head h2{ font-size:26px; margin-top:6px; }
+  .search-box{
+    display:flex; align-items:center; gap:8px;
+    border:1.5px solid var(--color-navy-border); border-radius:7px; padding:9px 14px;
+    min-width:230px;
+  }
+  .search-box svg{ width:16px; height:16px; color:#8b98b8; }
+  .search-box input{
+    border:none; outline:none; font-family:'Inter',sans-serif; font-size:14px; font-weight:300;
+    width:100%; color:var(--color-navy); background:transparent;
+  }
+
+  .card-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:18px;
+  }
+  .card{
+    background:#fff; border-radius:10px; border:1px solid var(--color-navy-border);
+    box-shadow:0 2px 12px rgba(1,22,72,0.06);
+    padding:22px; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(1,22,72,0.12);
+    border-color:rgba(39,108,233,0.35);
+  }
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; }
+  .card-icon{
+    width:44px; height:44px; border-radius:9px; background:var(--color-mist);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card-icon svg{ width:22px; height:22px; color:var(--color-blue); }
+  .card-num{
+    font-size:12px; font-weight:500; color:#9aa8c9; letter-spacing:0.04em;
+  }
+  .card h3{ font-size:18px; }
+  .card p{ font-size:14px; color:#4a5578; }
+  .card-arrow{
+    margin-top:auto; display:flex; align-items:center; gap:6px;
+    font-size:13px; font-weight:500; color:var(--color-blue);
+  }
+  .card-arrow svg{ width:14px; height:14px; transition:transform .15s ease; }
+  .card:hover .card-arrow svg{ transform:translateX(3px); }
+  .no-results{ font-size:14px; color:#8b98b8; padding:30px 0; font-weight:200; grid-column:1/-1; }
+
+  /* ---------- DETAIL PAGE ---------- */
+  .detail-page{ padding:40px 0 72px; }
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:500;
+    color:var(--color-blue); margin-bottom:22px;
+  }
+  .back-link svg{ width:15px; height:15px; }
+
+  .sheet-strip{
+    display:flex; gap:8px; overflow-x:auto; padding-bottom:14px; margin-bottom:28px;
+    border-bottom:1px solid var(--color-navy-border);
+  }
+  .sheet-chip{
+    flex-shrink:0; font-size:12px; font-weight:500; color:#5a6f9e;
+    border:1px solid var(--color-navy-border); border-radius:7px;
+    padding:7px 12px; white-space:nowrap; transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .sheet-chip:hover{ border-color:var(--color-blue); color:var(--color-blue); }
+  .sheet-chip.active{ background:var(--color-navy); color:#fff; border-color:var(--color-navy); }
+
+  .detail-head{ display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:18px; margin-bottom:8px;}
+  .detail-head h1{ font-size:32px; }
+  .detail-tags{ display:flex; gap:8px; flex-wrap:wrap; }
+  .tag{
+    font-size:12px; font-weight:500; padding:6px 12px; border-radius:999px;
+    background:var(--color-mist); color:var(--color-navy); white-space:nowrap;
+  }
+  .tag.blue{ background:rgba(39,108,233,0.1); color:var(--color-blue); }
+
+  .detail-body{
+    display:grid; grid-template-columns:1.5fr 1fr; gap:34px; margin-top:28px; align-items:start;
+  }
+  @media (max-width:860px){ .detail-body{ grid-template-columns:1fr; } }
+
+  .drawing-frame{
+    background:#fff; border:1px solid var(--color-navy-border); border-radius:12px;
+    padding:20px; box-shadow:0 2px 16px rgba(1,22,72,0.06);
+  }
+  .drawing-frame img{ border-radius:4px; }
+  .scale-caption{ margin-top:14px; font-size:12px; color:#8b98b8; font-weight:300; text-align:center; }
+
+  .side-panel{ display:flex; flex-direction:column; gap:20px; }
+  .info-card{
+    background:var(--color-mist); border-radius:10px; padding:22px;
+  }
+  .info-card h4{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:#5a6f9e; font-weight:500; margin-bottom:14px; }
+  .callout-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .callout-list li{
+    font-size:14px; font-weight:300; color:#1c2e5c; line-height:150%;
+    padding-left:16px; position:relative;
+  }
+  .callout-list li::before{
+    content:''; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%;
+    background:var(--color-blue);
+  }
+  .note-card{
+    border:1.5px dashed rgba(39,108,233,0.4); border-radius:10px; padding:18px 20px;
+    background:rgba(39,108,233,0.05);
+  }
+  .note-card h4{ font-size:13px; color:var(--color-blue); text-transform:uppercase; letter-spacing:0.08em; font-weight:500; margin-bottom:8px; }
+  .note-card p{ font-size:13.5px; color:#1c2e5c; font-weight:300; }
+
+  .detail-nav{
+    display:flex; justify-content:space-between; gap:16px; margin-top:44px; padding-top:24px;
+    border-top:1px solid var(--color-navy-border);
+  }
+  .nav-btn{
+    display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500;
+    color:var(--color-navy); border:1px solid var(--color-navy-border); border-radius:8px;
+    padding:12px 18px; transition:border-color .15s ease, background .15s ease; max-width:48%;
+  }
+  .nav-btn:hover{ border-color:var(--color-blue); background:var(--color-mist); }
+  .nav-btn .lbl{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:#8b98b8; display:block; font-weight:500; }
+  .nav-btn svg{ width:16px; height:16px; color:var(--color-blue); flex-shrink:0; }
+  .nav-btn.next{ margin-left:auto; text-align:right; flex-direction:row-reverse; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--color-navy); color:rgba(255,255,255,0.7); padding:48px 0 28px; margin-top:0; }
+  .footer-top{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:28px; padding-bottom:28px; border-bottom:1px solid rgba(255,255,255,0.1); }
+  .footer-brand svg{ height:28px; width:auto; margin-bottom:12px; }
+  .footer-brand p{ max-width:320px; font-size:13.5px; color:rgba(255,255,255,0.55); }
+  .footer-contact{ display:flex; flex-direction:column; gap:8px; font-size:13.5px; }
+  .footer-contact a:hover{ color:#fff; }
+  .footer-bottom{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; padding-top:20px; font-size:12px; color:rgba(255,255,255,0.4); }
+
+  @media (max-width:600px){
+    .hero h1{ font-size:30px; }
+    .catalog-head{ flex-direction:column; align-items:flex-start; }
+    .detail-head h1{ font-size:26px; }
+    .nav-title{ font-size:12px; }
+  }
+  @media (max-width:480px){
+    .nav-inner{ padding:14px 16px; }
+    .nav-title span{ display:none; }
+    .nav-divider{ display:none; }
+    .nav-cta{ padding:8px 12px; font-size:12px; }
+    .nav-brand svg{ height:20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#/" class="nav-brand">
+      <svg viewBox="0 0 1783 582" xmlns="http://www.w3.org/2000/svg"><path d="M89.969 350.984C73.8364 350.984 57.8921 348.05 42.1362 342.165C26.3802 336.28 12.3348 328.119 0 317.683L27.3375 282.091C39.484 291.962 50.689 299.024 60.9366 303.308C71.1842 307.577 82.091 309.711 93.6726 309.711C101.268 309.711 107.718 308.958 113.038 307.436C118.342 305.913 122.438 303.685 125.279 300.75C128.119 297.816 129.547 294.348 129.547 290.362C129.547 284.853 127.46 280.585 123.286 277.556C119.111 274.527 111.987 272.142 101.927 270.431L58.0804 262.742C41.9478 259.901 29.5189 253.734 20.7778 244.239C12.0523 234.745 7.67394 222.693 7.67394 208.082C7.67394 195.182 10.9538 184.072 17.4979 174.766C24.0419 165.475 33.4421 158.351 45.6828 153.407C57.9235 148.48 72.4868 146 89.3883 146C104.187 146 119.096 148.511 134.082 153.548C149.069 158.586 162.079 165.554 173.08 174.467L147.171 210.624C126.675 194.869 106.274 186.991 85.9515 186.991C79.3133 186.991 73.5696 187.697 68.7204 189.125C63.8869 190.553 60.1833 192.546 57.6097 195.104C55.036 197.662 53.7648 200.753 53.7648 204.363C53.7648 209.306 55.6166 213.088 59.3202 215.756C63.0238 218.408 69.05 220.495 77.3987 222.018L118.687 228.844C137.849 231.889 152.428 238.244 162.393 247.927C172.358 257.61 177.333 270.133 177.333 285.512C177.333 298.993 173.818 310.621 166.803 320.383C159.772 330.159 149.713 337.708 136.625 343.012C123.537 348.316 107.969 350.984 89.9376 350.984H89.969Z" fill="white"/><path d="M287.546 350.984C269.138 350.984 253.147 347.328 239.572 340.015C225.998 332.717 215.515 322.313 208.107 308.832C200.7 295.352 196.997 279.502 196.997 261.282V148.841H245.959V261.298C245.959 270.227 247.67 278.042 251.091 284.791C254.512 291.523 259.393 296.702 265.748 300.311C272.104 303.921 279.464 305.725 287.813 305.725C296.162 305.725 303.71 303.921 309.878 300.311C316.045 296.702 320.831 291.539 324.253 284.791C327.674 278.058 329.384 270.227 329.384 261.298V148.841H378.347V261.298C378.347 279.329 374.596 295.085 367.095 308.566C359.594 322.046 349.064 332.482 335.489 339.889C321.914 347.296 305.923 351 287.515 351L287.546 350.984Z" fill="white"/><path d="M408.556 348.144V148.841H513.606C526.71 148.841 538.323 151.65 548.477 157.236C558.63 162.839 566.649 170.481 572.534 180.148C578.419 189.831 581.354 200.926 581.354 213.465C581.354 226.004 578.403 236.204 572.534 245.777C566.649 255.366 558.583 262.914 548.335 268.407C538.088 273.915 526.506 276.661 513.606 276.661H457.519V348.128H408.556V348.144ZM457.519 236.252H507.91C515.129 236.252 520.904 234.164 525.282 229.99C529.645 225.816 531.826 220.401 531.826 213.763C531.826 207.125 529.645 201.381 525.282 197.113C520.904 192.844 515.129 190.71 507.91 190.71H457.519V236.267V236.252Z" fill="white"/><path d="M606.416 348.144V148.841H763.567V191.259H655.379V227.134H726.845V268.124H655.379V305.71H764.713V348.128H606.416V348.144Z" fill="white"/><path d="M793.479 348.144V148.841H895.406C909.074 148.841 921.221 151.54 931.845 156.954C942.47 162.368 950.771 169.869 956.75 179.442C962.73 189.031 965.711 199.985 965.711 212.319C965.711 224.654 962.29 236.048 955.464 245.919C948.637 255.79 939.613 263.291 928.409 268.407L971.973 348.128H917.313L879.728 275.532H842.426V348.128H793.463L793.479 348.144ZM842.441 235.687H890.839C898.435 235.687 904.555 233.599 909.2 229.425C913.845 225.251 916.183 219.836 916.183 213.198C916.183 206.56 913.861 201.146 909.2 196.972C904.555 192.797 898.419 190.71 890.839 190.71H842.441V235.702V235.687Z" fill="white"/><path d="M1067.07 350.984C1050.94 350.984 1035 348.05 1019.24 342.165C1003.49 336.28 989.44 328.119 977.105 317.683L1004.44 282.091C1016.59 291.962 1027.79 299.024 1038.04 303.308C1048.29 307.577 1059.2 309.711 1070.78 309.711C1078.37 309.711 1084.82 308.958 1090.14 307.436C1095.45 305.913 1099.54 303.685 1102.38 300.75C1105.22 297.816 1106.65 294.348 1106.65 290.362C1106.65 284.853 1104.56 280.585 1100.39 277.556C1096.22 274.527 1089.09 272.142 1079.03 270.431L1035.19 262.742C1019.05 259.901 1006.62 253.734 997.882 244.239C989.157 234.745 984.779 222.693 984.779 208.082C984.779 195.182 988.059 184.072 994.603 174.766C1001.15 165.475 1010.55 158.351 1022.79 153.407C1035.03 148.48 1049.59 146 1066.49 146C1081.29 146 1096.2 148.511 1111.19 153.548C1126.17 158.586 1139.18 165.554 1150.18 174.467L1124.28 210.624C1103.78 194.869 1083.36 186.991 1063.06 186.991C1056.4 186.991 1050.67 187.697 1045.83 189.125C1040.99 190.553 1037.29 192.546 1034.71 195.104C1032.14 197.662 1030.87 200.753 1030.87 204.363C1030.87 209.306 1032.72 213.088 1036.42 215.756C1040.13 218.408 1046.15 220.495 1054.5 222.018L1095.79 228.844C1114.95 231.889 1129.53 238.244 1139.5 247.927C1149.46 257.61 1154.44 270.133 1154.44 285.512C1154.44 298.993 1150.92 310.621 1143.91 320.383C1136.88 330.159 1126.83 337.708 1113.73 343.012C1100.63 348.316 1085.07 350.984 1067.04 350.984H1067.07Z" fill="white"/><path d="M1264.67 350.984C1246.26 350.984 1230.27 347.328 1216.69 340.015C1203.12 332.717 1192.63 322.313 1185.23 308.832C1177.82 295.352 1174.12 279.502 1174.12 261.282V148.841H1223.1V261.298C1223.1 270.227 1224.81 278.042 1228.21 284.791C1231.63 291.523 1236.51 296.702 1242.87 300.311C1249.22 303.921 1256.58 305.725 1264.93 305.725C1273.28 305.725 1280.83 303.921 1287 300.311C1293.17 296.702 1297.95 291.539 1301.37 284.791C1304.79 278.058 1306.5 270.227 1306.5 261.298V148.841H1355.47V261.298C1355.47 279.329 1351.72 295.085 1344.21 308.566C1336.71 322.046 1326.18 332.482 1312.61 339.889C1299.03 347.296 1283.04 351 1264.63 351L1264.67 350.984Z" fill="white"/><path d="M1385.66 348.144V148.841H1484.45C1498.12 148.841 1510.12 151.21 1520.47 155.965C1530.81 160.705 1538.92 167.311 1544.81 175.754C1550.69 184.197 1553.62 193.927 1553.62 204.944C1553.62 213.104 1551.58 220.747 1547.5 227.856C1543.42 234.98 1537.87 241.007 1530.85 245.934C1539.77 250.674 1546.85 256.857 1552.07 264.436C1557.3 272.032 1559.9 280.381 1559.9 289.483C1559.9 301.064 1556.95 311.265 1551.08 320.084C1545.2 328.904 1536.94 335.793 1526.32 340.721C1515.68 345.664 1503.34 348.128 1489.31 348.128H1385.68L1385.66 348.144ZM1434.62 228.279H1481.31C1488.53 228.279 1494.21 226.475 1498.4 222.865C1502.57 219.256 1504.66 214.517 1504.66 208.632C1504.66 202.747 1502.57 197.772 1498.4 194.257C1494.23 190.741 1488.53 188.984 1481.31 188.984H1434.62V228.279ZM1434.62 308.001H1485.58C1493.17 308.001 1499.2 306.102 1503.66 302.304C1508.11 298.506 1510.34 293.39 1510.34 286.925C1510.34 280.459 1508.11 275.343 1503.66 271.545C1499.2 267.748 1493.17 265.849 1485.58 265.849H1434.62V307.985V308.001Z" fill="white"/><path d="M112.05 433.77V528H93.15V466.71L67.905 528H53.595L28.215 466.71V528H9.315V433.77H30.78L60.75 503.835L90.72 433.77H112.05ZM174.476 528.945C165.656 528.945 157.556 526.875 150.176 522.735C142.796 518.595 136.946 512.88 132.626 505.59C128.306 498.21 126.146 489.885 126.146 480.615C126.146 471.435 128.306 463.2 132.626 455.91C136.946 448.53 142.796 442.77 150.176 438.63C157.556 434.49 165.656 432.42 174.476 432.42C183.386 432.42 191.486 434.49 198.776 438.63C206.156 442.77 211.961 448.53 216.191 455.91C220.511 463.2 222.671 471.435 222.671 480.615C222.671 489.885 220.511 498.21 216.191 505.59C211.961 512.88 206.156 518.595 198.776 522.735C191.396 526.875 183.296 528.945 174.476 528.945ZM174.476 512.07C180.146 512.07 185.141 510.81 189.461 508.29C193.781 505.68 197.156 501.99 199.586 497.22C202.016 492.45 203.231 486.915 203.231 480.615C203.231 474.315 202.016 468.825 199.586 464.145C197.156 459.375 193.781 455.73 189.461 453.21C185.141 450.69 180.146 449.43 174.476 449.43C168.806 449.43 163.766 450.69 159.356 453.21C155.036 455.73 151.661 459.375 149.231 464.145C146.801 468.825 145.586 474.315 145.586 480.615C145.586 486.915 146.801 492.45 149.231 497.22C151.661 501.99 155.036 505.68 159.356 508.29C163.766 510.81 168.806 512.07 174.476 512.07ZM269.672 433.77C279.572 433.77 288.257 435.705 295.727 439.575C303.287 443.445 309.092 448.98 313.142 456.18C317.282 463.29 319.352 471.57 319.352 481.02C319.352 490.47 317.282 498.75 313.142 505.86C309.092 512.88 303.287 518.325 295.727 522.195C288.257 526.065 279.572 528 269.672 528H236.732V433.77H269.672ZM268.997 511.935C278.897 511.935 286.547 509.235 291.947 503.835C297.347 498.435 300.047 490.83 300.047 481.02C300.047 471.21 297.347 463.56 291.947 458.07C286.547 452.49 278.897 449.7 268.997 449.7H255.632V511.935H268.997ZM352.4 449.025V472.65H384.125V487.635H352.4V512.61H388.175V528H333.5V433.635H388.175V449.025H352.4ZM453.95 528L433.16 491.28H424.25V528H405.35V433.77H440.72C448.01 433.77 454.22 435.075 459.35 437.685C464.48 440.205 468.305 443.67 470.825 448.08C473.435 452.4 474.74 457.26 474.74 462.66C474.74 468.87 472.94 474.495 469.34 479.535C465.74 484.485 460.385 487.905 453.275 489.795L475.82 528H453.95ZM424.25 477.105H440.045C445.175 477.105 449 475.89 451.52 473.46C454.04 470.94 455.3 467.475 455.3 463.065C455.3 458.745 454.04 455.415 451.52 453.075C449 450.645 445.175 449.43 440.045 449.43H424.25V477.105ZM572.43 528H553.53L510.735 463.335V528H491.835V433.635H510.735L553.53 498.435V433.635H572.43V528ZM642.175 513.015H673.225V528H623.275V433.77H642.175V513.015ZM704.138 433.77V528H685.238V433.77H704.138ZM807.456 433.77L772.896 528H749.946L715.386 433.77H735.636L761.556 508.695L787.341 433.77H807.456ZM837.688 433.77V528H818.788V433.77H837.688ZM936.956 528H918.056L875.261 463.335V528H856.361V433.635H875.261L918.056 498.435V433.635H936.956V528ZM1021.24 462.12C1019.08 458.16 1016.11 455.145 1012.33 453.075C1008.55 451.005 1004.14 449.97 999.103 449.97C993.523 449.97 988.573 451.23 984.253 453.75C979.933 456.27 976.558 459.87 974.128 464.55C971.698 469.23 970.483 474.63 970.483 480.75C970.483 487.05 971.698 492.54 974.128 497.22C976.648 501.9 980.113 505.5 984.523 508.02C988.933 510.54 994.063 511.8 999.913 511.8C1007.11 511.8 1013.01 509.91 1017.6 506.13C1022.19 502.26 1025.2 496.905 1026.64 490.065H994.243V475.62H1045.27V492.09C1044.01 498.66 1041.31 504.735 1037.17 510.315C1033.03 515.895 1027.68 520.395 1021.11 523.815C1014.63 527.145 1007.34 528.81 999.238 528.81C990.148 528.81 981.913 526.785 974.533 522.735C967.243 518.595 961.483 512.88 957.253 505.59C953.113 498.3 951.043 490.02 951.043 480.75C951.043 471.48 953.113 463.2 957.253 455.91C961.483 448.53 967.243 442.815 974.533 438.765C981.913 434.625 990.103 432.555 999.103 432.555C1009.72 432.555 1018.95 435.165 1026.78 440.385C1034.61 445.515 1040.01 452.76 1042.98 462.12H1021.24ZM1123.96 528.945C1117.39 528.945 1111.45 527.82 1106.14 525.57C1100.92 523.32 1096.78 520.08 1093.72 515.85C1090.66 511.62 1089.08 506.625 1088.99 500.865H1109.24C1109.51 504.735 1110.86 507.795 1113.29 510.045C1115.81 512.295 1119.23 513.42 1123.55 513.42C1127.96 513.42 1131.43 512.385 1133.95 510.315C1136.47 508.155 1137.73 505.365 1137.73 501.945C1137.73 499.155 1136.87 496.86 1135.16 495.06C1133.45 493.26 1131.29 491.865 1128.68 490.875C1126.16 489.795 1122.65 488.625 1118.15 487.365C1112.03 485.565 1107.04 483.81 1103.17 482.1C1099.39 480.3 1096.1 477.645 1093.31 474.135C1090.61 470.535 1089.26 465.765 1089.26 459.825C1089.26 454.245 1090.66 449.385 1093.45 445.245C1096.24 441.105 1100.15 437.955 1105.19 435.795C1110.23 433.545 1115.99 432.42 1122.47 432.42C1132.19 432.42 1140.07 434.805 1146.1 439.575C1152.22 444.255 1155.59 450.825 1156.22 459.285H1135.43C1135.25 456.045 1133.86 453.39 1131.25 451.32C1128.73 449.16 1125.35 448.08 1121.12 448.08C1117.43 448.08 1114.46 449.025 1112.21 450.915C1110.05 452.805 1108.97 455.55 1108.97 459.15C1108.97 461.67 1109.78 463.785 1111.4 465.495C1113.11 467.115 1115.18 468.465 1117.61 469.545C1120.13 470.535 1123.64 471.705 1128.14 473.055C1134.26 474.855 1139.26 476.655 1143.13 478.455C1147 480.255 1150.33 482.955 1153.12 486.555C1155.91 490.155 1157.3 494.88 1157.3 500.73C1157.3 505.77 1156 510.45 1153.39 514.77C1150.78 519.09 1146.95 522.555 1141.91 525.165C1136.87 527.685 1130.89 528.945 1123.96 528.945ZM1217.43 528.945C1208.61 528.945 1200.51 526.875 1193.13 522.735C1185.75 518.595 1179.9 512.88 1175.58 505.59C1171.26 498.21 1169.1 489.885 1169.1 480.615C1169.1 471.435 1171.26 463.2 1175.58 455.91C1179.9 448.53 1185.75 442.77 1193.13 438.63C1200.51 434.49 1208.61 432.42 1217.43 432.42C1226.34 432.42 1234.44 434.49 1241.73 438.63C1249.11 442.77 1254.92 448.53 1259.15 455.91C1263.47 463.2 1265.63 471.435 1265.63 480.615C1265.63 489.885 1263.47 498.21 1259.15 505.59C1254.92 512.88 1249.11 518.595 1241.73 522.735C1234.35 526.875 1226.25 528.945 1217.43 528.945ZM1217.43 512.07C1223.1 512.07 1228.1 510.81 1232.42 508.29C1236.74 505.68 1240.11 501.99 1242.54 497.22C1244.97 492.45 1246.19 486.915 1246.19 480.615C1246.19 474.315 1244.97 468.825 1242.54 464.145C1240.11 459.375 1236.74 455.73 1232.42 453.21C1228.1 450.69 1223.1 449.43 1217.43 449.43C1211.76 449.43 1206.72 450.69 1202.31 453.21C1197.99 455.73 1194.62 459.375 1192.19 464.145C1189.76 468.825 1188.54 474.315 1188.54 480.615C1188.54 486.915 1189.76 492.45 1192.19 497.22C1194.62 501.99 1197.99 505.68 1202.31 508.29C1206.72 510.81 1211.76 512.07 1217.43 512.07ZM1298.59 513.015H1329.64V528H1279.69V433.77H1298.59V513.015ZM1360.28 433.77V492.09C1360.28 498.48 1361.94 503.385 1365.27 506.805C1368.6 510.135 1373.28 511.8 1379.31 511.8C1385.43 511.8 1390.16 510.135 1393.49 506.805C1396.82 503.385 1398.48 498.48 1398.48 492.09V433.77H1417.52V491.955C1417.52 499.965 1415.76 506.76 1412.25 512.34C1408.83 517.83 1404.2 521.97 1398.35 524.76C1392.59 527.55 1386.15 528.945 1379.04 528.945C1372.02 528.945 1365.63 527.55 1359.87 524.76C1354.2 521.97 1349.7 517.83 1346.37 512.34C1343.04 506.76 1341.38 499.965 1341.38 491.955V433.77H1360.28ZM1499.9 433.77V449.025H1474.79V528H1455.89V449.025H1430.78V433.77H1499.9ZM1532.59 433.77V528H1513.69V433.77H1532.59ZM1595.01 528.945C1586.19 528.945 1578.09 526.875 1570.71 522.735C1563.33 518.595 1557.48 512.88 1553.16 505.59C1548.84 498.21 1546.68 489.885 1546.68 480.615C1546.68 471.435 1548.84 463.2 1553.16 455.91C1557.48 448.53 1563.33 442.77 1570.71 438.63C1578.09 434.49 1586.19 432.42 1595.01 432.42C1603.92 432.42 1612.02 434.49 1619.31 438.63C1626.69 442.77 1632.49 448.53 1636.72 455.91C1641.04 463.2 1643.2 471.435 1643.2 480.615C1643.2 489.885 1641.04 498.21 1636.72 505.59C1632.49 512.88 1626.69 518.595 1619.31 522.735C1611.93 526.875 1603.83 528.945 1595.01 528.945ZM1595.01 512.07C1600.68 512.07 1605.67 510.81 1609.99 508.29C1614.31 505.68 1617.69 501.99 1620.12 497.22C1622.55 492.45 1623.76 486.915 1623.76 480.615C1623.76 474.315 1622.55 468.825 1620.12 464.145C1617.69 459.375 1614.31 455.73 1609.99 453.21C1605.67 450.69 1600.68 449.43 1595.01 449.43C1589.34 449.43 1584.3 450.69 1579.89 453.21C1575.57 455.73 1572.19 459.375 1569.76 464.145C1567.33 468.825 1566.12 474.315 1566.12 480.615C1566.12 486.915 1567.33 492.45 1569.76 497.22C1572.19 501.99 1575.57 505.68 1579.89 508.29C1584.3 510.81 1589.34 512.07 1595.01 512.07ZM1737.86 528H1718.96L1676.16 463.335V528H1657.26V433.635H1676.16L1718.96 498.435V433.635H1737.86V528Z" fill="white"/><mask id="path-10-outside-1_5_52" maskUnits="userSpaceOnUse" x="1624" y="71" width="115" height="58" fill="black"><rect fill="white" x="1624" y="71" width="115" height="58"/><path d="M1666.52 72.16V81.2H1651.64V128H1640.44V81.2H1625.56V72.16H1666.52ZM1737.17 72.16V128H1725.97V91.68L1711.01 128H1702.53L1687.49 91.68V128H1676.29V72.16H1689.01L1706.77 113.68L1724.53 72.16H1737.17Z"/></mask><path d="M1666.52 72.16V81.2H1651.64V128H1640.44V81.2H1625.56V72.16H1666.52ZM1737.17 72.16V128H1725.97V91.68L1711.01 128H1702.53L1687.49 91.68V128H1676.29V72.16H1689.01L1706.77 113.68L1724.53 72.16H1737.17Z" fill="white"/><circle cx="1683" cy="100" r="92.5" stroke="white" stroke-width="15"/></svg>
+      <div class="nav-divider"></div>
+      <div class="nav-title">SIP Design Manual<span>Supersub / Super Panel</span></div>
+    </a>
+    <a class="nav-cta" href="https://supersub.co.nz" target="_blank" rel="noopener">supersub.co.nz →</a>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg viewBox="0 0 1783 582" xmlns="http://www.w3.org/2000/svg"><path d="M89.969 350.984C73.8364 350.984 57.8921 348.05 42.1362 342.165C26.3802 336.28 12.3348 328.119 0 317.683L27.3375 282.091C39.484 291.962 50.689 299.024 60.9366 303.308C71.1842 307.577 82.091 309.711 93.6726 309.711C101.268 309.711 107.718 308.958 113.038 307.436C118.342 305.913 122.438 303.685 125.279 300.75C128.119 297.816 129.547 294.348 129.547 290.362C129.547 284.853 127.46 280.585 123.286 277.556C119.111 274.527 111.987 272.142 101.927 270.431L58.0804 262.742C41.9478 259.901 29.5189 253.734 20.7778 244.239C12.0523 234.745 7.67394 222.693 7.67394 208.082C7.67394 195.182 10.9538 184.072 17.4979 174.766C24.0419 165.475 33.4421 158.351 45.6828 153.407C57.9235 148.48 72.4868 146 89.3883 146C104.187 146 119.096 148.511 134.082 153.548C149.069 158.586 162.079 165.554 173.08 174.467L147.171 210.624C126.675 194.869 106.274 186.991 85.9515 186.991C79.3133 186.991 73.5696 187.697 68.7204 189.125C63.8869 190.553 60.1833 192.546 57.6097 195.104C55.036 197.662 53.7648 200.753 53.7648 204.363C53.7648 209.306 55.6166 213.088 59.3202 215.756C63.0238 218.408 69.05 220.495 77.3987 222.018L118.687 228.844C137.849 231.889 152.428 238.244 162.393 247.927C172.358 257.61 177.333 270.133 177.333 285.512C177.333 298.993 173.818 310.621 166.803 320.383C159.772 330.159 149.713 337.708 136.625 343.012C123.537 348.316 107.969 350.984 89.9376 350.984H89.969Z" fill="white"/><path d="M287.546 350.984C269.138 350.984 253.147 347.328 239.572 340.015C225.998 332.717 215.515 322.313 208.107 308.832C200.7 295.352 196.997 279.502 196.997 261.282V148.841H245.959V261.298C245.959 270.227 247.67 278.042 251.091 284.791C254.512 291.523 259.393 296.702 265.748 300.311C272.104 303.921 279.464 305.725 287.813 305.725C296.162 305.725 303.71 303.921 309.878 300.311C316.045 296.702 320.831 291.539 324.253 284.791C327.674 278.058 329.384 270.227 329.384 261.298V148.841H378.347V261.298C378.347 279.329 374.596 295.085 367.095 308.566C359.594 322.046 349.064 332.482 335.489 339.889C321.914 347.296 305.923 351 287.515 351L287.546 350.984Z" fill="white"/><path d="M408.556 348.144V148.841H513.606C526.71 148.841 538.323 151.65 548.477 157.236C558.63 162.839 566.649 170.481 572.534 180.148C578.419 189.831 581.354 200.926 581.354 213.465C581.354 226.004 578.403 236.204 572.534 245.777C566.649 255.366 558.583 262.914 548.335 268.407C538.088 273.915 526.506 276.661 513.606 276.661H457.519V348.128H408.556V348.144ZM457.519 236.252H507.91C515.129 236.252 520.904 234.164 525.282 229.99C529.645 225.816 531.826 220.401 531.826 213.763C531.826 207.125 529.645 201.381 525.282 197.113C520.904 192.844 515.129 190.71 507.91 190.71H457.519V236.267V236.252Z" fill="white"/><path d="M606.416 348.144V148.841H763.567V191.259H655.379V227.134H726.845V268.124H655.379V305.71H764.713V348.128H606.416V348.144Z" fill="white"/><path d="M793.479 348.144V148.841H895.406C909.074 148.841 921.221 151.54 931.845 156.954C942.47 162.368 950.771 169.869 956.75 179.442C962.73 189.031 965.711 199.985 965.711 212.319C965.711 224.654 962.29 236.048 955.464 245.919C948.637 255.79 939.613 263.291 928.409 268.407L971.973 348.128H917.313L879.728 275.532H842.426V348.128H793.463L793.479 348.144ZM842.441 235.687H890.839C898.435 235.687 904.555 233.599 909.2 229.425C913.845 225.251 916.183 219.836 916.183 213.198C916.183 206.56 913.861 201.146 909.2 196.972C904.555 192.797 898.419 190.71 890.839 190.71H842.441V235.702V235.687Z" fill="white"/><path d="M1067.07 350.984C1050.94 350.984 1035 348.05 1019.24 342.165C1003.49 336.28 989.44 328.119 977.105 317.683L1004.44 282.091C1016.59 291.962 1027.79 299.024 1038.04 303.308C1048.29 307.577 1059.2 309.711 1070.78 309.711C1078.37 309.711 1084.82 308.958 1090.14 307.436C1095.45 305.913 1099.54 303.685 1102.38 300.75C1105.22 297.816 1106.65 294.348 1106.65 290.362C1106.65 284.853 1104.56 280.585 1100.39 277.556C1096.22 274.527 1089.09 272.142 1079.03 270.431L1035.19 262.742C1019.05 259.901 1006.62 253.734 997.882 244.239C989.157 234.745 984.779 222.693 984.779 208.082C984.779 195.182 988.059 184.072 994.603 174.766C1001.15 165.475 1010.55 158.351 1022.79 153.407C1035.03 148.48 1049.59 146 1066.49 146C1081.29 146 1096.2 148.511 1111.19 153.548C1126.17 158.586 1139.18 165.554 1150.18 174.467L1124.28 210.624C1103.78 194.869 1083.36 186.991 1063.06 186.991C1056.4 186.991 1050.67 187.697 1045.83 189.125C1040.99 190.553 1037.29 192.546 1034.71 195.104C1032.14 197.662 1030.87 200.753 1030.87 204.363C1030.87 209.306 1032.72 213.088 1036.42 215.756C1040.13 218.408 1046.15 220.495 1054.5 222.018L1095.79 228.844C1114.95 231.889 1129.53 238.244 1139.5 247.927C1149.46 257.61 1154.44 270.133 1154.44 285.512C1154.44 298.993 1150.92 310.621 1143.91 320.383C1136.88 330.159 1126.83 337.708 1113.73 343.012C1100.63 348.316 1085.07 350.984 1067.04 350.984H1067.07Z" fill="white"/><path d="M1264.67 350.984C1246.26 350.984 1230.27 347.328 1216.69 340.015C1203.12 332.717 1192.63 322.313 1185.23 308.832C1177.82 295.352 1174.12 279.502 1174.12 261.282V148.841H1223.1V261.298C1223.1 270.227 1224.81 278.042 1228.21 284.791C1231.63 291.523 1236.51 296.702 1242.87 300.311C1249.22 303.921 1256.58 305.725 1264.93 305.725C1273.28 305.725 1280.83 303.921 1287 300.311C1293.17 296.702 1297.95 291.539 1301.37 284.791C1304.79 278.058 1306.5 270.227 1306.5 261.298V148.841H1355.47V261.298C1355.47 279.329 1351.72 295.085 1344.21 308.566C1336.71 322.046 1326.18 332.482 1312.61 339.889C1299.03 347.296 1283.04 351 1264.63 351L1264.67 350.984Z" fill="white"/><path d="M1385.66 348.144V148.841H1484.45C1498.12 148.841 1510.12 151.21 1520.47 155.965C1530.81 160.705 1538.92 167.311 1544.81 175.754C1550.69 184.197 1553.62 193.927 1553.62 204.944C1553.62 213.104 1551.58 220.747 1547.5 227.856C1543.42 234.98 1537.87 241.007 1530.85 245.934C1539.77 250.674 1546.85 256.857 1552.07 264.436C1557.3 272.032 1559.9 280.381 1559.9 289.483C1559.9 301.064 1556.95 311.265 1551.08 320.084C1545.2 328.904 1536.94 335.793 1526.32 340.721C1515.68 345.664 1503.34 348.128 1489.31 348.128H1385.68L1385.66 348.144ZM1434.62 228.279H1481.31C1488.53 228.279 1494.21 226.475 1498.4 222.865C1502.57 219.256 1504.66 214.517 1504.66 208.632C1504.66 202.747 1502.57 197.772 1498.4 194.257C1494.23 190.741 1488.53 188.984 1481.31 188.984H1434.62V228.279ZM1434.62 308.001H1485.58C1493.17 308.001 1499.2 306.102 1503.66 302.304C1508.11 298.506 1510.34 293.39 1510.34 286.925C1510.34 280.459 1508.11 275.343 1503.66 271.545C1499.2 267.748 1493.17 265.849 1485.58 265.849H1434.62V307.985V308.001Z" fill="white"/></svg>
+        <p>Structural Insulated Panel systems, engineered and manufactured in New Zealand. This manual documents standard SIP connection details for design and consenting reference.</p>
+      </div>
+      <div class="footer-contact">
+        <a href="tel:0210555646">0210 555 646</a>
+        <a href="https://www.supersub.co.nz" target="_blank" rel="noopener">www.supersub.co.nz</a>
+        <a href="mailto:office@supersub.co.nz">office@supersub.co.nz</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SuperPanel — SIP System · SP_DESIGN DETAILS_2026_V1.4</span>
+      <span>This design and drawing is the copyright of Super Panels Ltd. No reproduction without permission.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA ============ */
+const GLANCE = [
+  { icon:'wind', label:'Wind zones NZ1–NZ4' },
+  { icon:'square', label:'113mm–313mm panels' },
+  { icon:'home', label:'Up to 2 storeys (NZS 3604)' },
+  { icon:'shield', label:'NZBC E2/AS1 compliant' },
+  { icon:'cloud', label:'Snow zones N0–N5' },
+  { icon:'calendar', label:'10 year warranty' },
+];
+
+const DETAILS = [
+  { num:'02', slug:'sill', title:'Sill Detail', icon:'grid', scale:'1:2',
+    short:'Window base — airseal, cavity batten & flashing tape.',
+    callouts:[
+      'Ensure sill is level to prevent water ponding',
+      'Window fixing to manufacturer\'s specification',
+      'Continuous airseal below the sill',
+      '7mm min / 10mm nominal drainage gap',
+      'SIP to solid blocking fixing — 50mm nails @ 150mm ctrs both sides',
+      'Flexible flashing tape over the sill',
+      '8mm min joinery overlap onto the sill',
+      'Machine cavity batten down (5mm max) to accommodate WANZ support bar, or use alternative batten location',
+      'Selected cladding on vented cavity — refer to cladding manufacturer\'s specifications',
+      'Building paper continuous behind the cavity'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'03', slug:'head', title:'Head Detail', icon:'layout', scale:'1:2',
+    short:'Aluminium head flashing, min 15° fall, E2/AS1 Table 7.',
+    callouts:[
+      'Aluminium head flashing with minimum 15° fall and stop end — refer E2/AS1 Table 7',
+      'Flexible flashing tape over head flashing',
+      'Machine cavity batten down (5mm max) to accommodate head flashing',
+      'Cavity closer above the joinery head',
+      'Continuous airseal and SIP to solid blocking fixing — 50mm nails @ 150mm ctrs both sides',
+      '5mm min / 10mm min cover to joinery, anti-capillary gap maintained',
+      'Sealant between head flashing and joinery required in Very High and above wind zones (5–12mm)',
+      'Window fixing to manufacturer\'s specification; joinery to manufacturer\'s specifications'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'04', slug:'jamb', title:'Jamb Detail', icon:'square', scale:'1:2',
+    short:'Compressible foam seal, 20mm min head flashing extension.',
+    callouts:[
+      'Head flashing stop end returns min 20mm past the jamb',
+      'Compressible foam seal against the joinery',
+      'Continuous airseal and flexible flashing tape at the jamb',
+      'Packer behind the window fixing as required',
+      'SIP to solid blocking fixing — 50mm nails @ 150mm ctrs both sides',
+      'Non-structural free draining cavity batten — refer cladding manufacturer for orientation',
+      'Window fixing to manufacturer\'s specification'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'05', slug:'base', title:'Base Detail', icon:'minus-square', scale:'1:2',
+    short:'SIP to bottom plate — 10mm setback, airseal, cavity closer.',
+    callouts:[
+      'SIP to bottom plate fixing — 50mm nails @ 150mm ctrs both sides',
+      'SIP to boundary timber fixing — 50mm nails @ 150mm ctrs both sides',
+      'Air seal continuous along the base junction (both sides)',
+      'SIP screws @ 300mm ctrs',
+      '10mm setback from cladding face; cavity closer fitted',
+      'Non-structural free draining cavity batten — see cladding manufacturer for orientation',
+      '50mm min clearance below framing',
+      'Selected cladding on vented cavity, building paper continuous'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'06', slug:'external-corner', title:'External Corner Detail', icon:'corner-up-right', scale:'1:2',
+    short:'Corner flashing to cladding spec, airseal at junction.',
+    callouts:[
+      'SIP to end plate fixing — 50mm nails @ 150mm ctrs both sides',
+      'Air seal continuous at the internal junction',
+      'SIP screws @ 300mm ctrs',
+      'Corner flashing to cladding manufacturer\'s specifications',
+      'Building paper continuous around the corner',
+      'Non-structural free draining cavity batten — see cladding manufacturer for orientation',
+      'Selected cladding on vented cavity, both faces'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'07', slug:'internal-corner', title:'Internal Corner Detail', icon:'corner-down-left', scale:'1:2',
+    short:'Flexible flashing tape, building paper continuous around corner.',
+    callouts:[
+      'SIP to end plate fixing — 50mm nails @ 150mm ctrs both sides',
+      'SIP screws @ 300mm ctrs',
+      'Flexible flashing tape at the internal junction',
+      'Air seal continuous behind the corner',
+      'Corner flashing to cladding manufacturer\'s specifications',
+      'Building paper continuous around the corner',
+      'Non-structural free draining cavity batten — see cladding manufacturer for orientation'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'08', slug:'soffit', title:'Soffit Detail', icon:'home', scale:'1:2',
+    short:'Soffit battens & lining, air seal at panel-to-blocking junction.',
+    callouts:[
+      'Selected roofing — refer to roofing manufacturer\'s specifications',
+      '70x45 purlins fixed with Type 17 14G screws @ 300mm ctrs',
+      'Angled blocking with continuous air seal to the SIP panel',
+      'SIP to bottom plate fixing — 50mm nails @ 150mm ctrs both sides',
+      '70x35 soffit battens fixed with Type 17 14G screws @ 300mm ctrs',
+      'Soffit lining with soffit scriber at the wall junction',
+      'Non-structural free draining cavity batten — see cladding manufacturer for orientation',
+      'Self supporting building paper over purlins'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'09', slug:'pipe-penetration', title:'Pipe Penetration Detail', icon:'droplet', scale:'1:2',
+    short:'Self-adhesive collar & flange plate, min 5° fall to outside.',
+    callouts:[
+      'Hole drilled through SIP panel to suit pipe size',
+      'Pipe min 5° fall to the outside',
+      'Proprietary self-adhesive collar around the penetration',
+      'Flange plate over pipe, sealed around the pipe and top half of the flange — refer Figure 68, E2/AS1',
+      'Continuous weather seal above the penetration',
+      'No sealant along the bottom edge — allow drainage path',
+      'Sealant in cladding negative spaces above the pipe penetration'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'10', slug:'panel-connection', title:'Panel Connection Detail', icon:'link-2', scale:'1:2',
+    short:'SIP panel-to-panel joint over end plate, screws @ 300mm ctrs.',
+    callouts:[
+      '1. Ensure double studs are well nailed',
+      '2. Slide panel over end plate',
+      '3. Nail in panel fixings',
+      'SIP to end plate fixing — 50mm nails @ 150mm ctrs both sides',
+      'SIP screws @ 300mm ctrs across the joint',
+      'Building paper continuous behind the joint',
+      'Non-structural free draining cavity batten — see cladding manufacturer for orientation'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'11', slug:'slab', title:'Slab Detail', icon:'anchor', scale:'1:2',
+    short:'M12 dynabolt fixing, nail bond & concrete seal to slab.',
+    callouts:[
+      'SIP to bottom plate fixing — 50mm nails @ 150mm ctrs both sides',
+      'Nail bond — 6mm continuous bead',
+      'Concrete seal along the slab junction',
+      'M12 dynabolt with 50x50x3 washer, within 150mm of each panel and @ 1200mm ctrs max',
+      'Cavity closer, 50mm min clearance below framing',
+      'Non-structural free draining cavity batten — see cladding manufacturer for orientation',
+      'Selected cladding on vented cavity, building paper continuous'
+    ],
+    note:'Cavity battens at max 480mm centres. Type 17 14G screws at 300mm centres.'
+  },
+  { num:'12', slug:'ridge', title:'Ridge Detail', icon:'triangle', scale:'1:5',
+    short:'Ridge beam connection, expanding foam & nailbond continuous bead.',
+    callouts:[
+      'Ridge flashing to roofing manufacturer\'s specifications',
+      '70x45 purlins fixed with Type 17 14G screws @ 300mm ctrs',
+      'Over a load-bearing wall: 50mm nails from roof skins to boundary trimmer',
+      'Over a ridge beam: expanding foam — 1 part polyurethane continuous bead, plus nailbond 6mm continuous bead',
+      'SIP screws @ 300mm ctrs on both roof skins',
+      'Self supporting building paper over purlins'
+    ],
+    note:'70x45 H1.2 SG8 purlins @ 900mm ctrs max. Type 17 14G screw fixing @ 300mm ctrs.'
+  },
+  { num:'13', slug:'barge', title:'Barge Detail', icon:'flag', scale:'1:5',
+    short:'Verge flashing to top plate, soffit battens @ 300mm ctrs.',
+    callouts:[
+      'Timber or Colorsteel barge board',
+      'Verge flashing to roofing manufacturer\'s specifications',
+      '70x45 purlins fixed with Type 17 14G screws @ 300mm ctrs',
+      'SIP to top plate fixing — 50mm nails @ 150mm ctrs both sides',
+      '70x35 soffit battens fixed with Type 17 14G screws @ 300mm ctrs',
+      'Air seal at the SIP panel to soffit junction',
+      'Selected cladding on vented cavity, self supporting building paper'
+    ],
+    note:'70x45 H1.2 SG8 purlins @ 900mm ctrs max. Type 17 14G screw fixing @ 300mm ctrs.'
+  },
+  { num:'14', slug:'eaves', title:'Eaves Detail', icon:'umbrella', scale:'1:5',
+    short:'Angled blocking, soffit lining & selected gutter.',
+    callouts:[
+      'Selected roofing and selected gutter to roofing manufacturer\'s specifications',
+      '70x45 purlins fixed with Type 17 14G screws @ 300mm ctrs',
+      'Timber or Colorsteel barge board with angled blocking',
+      'Air seal continuous at the angled blocking to SIP junction',
+      'SIP to top plate fixing — 50mm nails @ 150mm ctrs both sides',
+      '70x35 soffit battens fixed with Type 17 14G screws @ 300mm ctrs',
+      'Selected cladding on vented cavity, self supporting building paper'
+    ],
+    note:'70x45 H1.2 SG8 purlins @ 900mm ctrs max. Type 17 14G screw fixing @ 300mm ctrs.'
+  },
+  { num:'15', slug:'verge', title:'Verge Detail', icon:'corner-left-down', scale:'1:5',
+    short:'Verge flashing, barge board, 50mm min soffit cover.',
+    callouts:[
+      'Timber or Colorsteel barge board',
+      'Verge flashing to roofing manufacturer\'s specifications, min 50mm cover, 35mm upstand',
+      '70x45 purlins fixed with Type 17 14G screws @ 300mm ctrs',
+      'Angled blocking at the soffit junction',
+      'SIP to top plate fixing — 50mm nails @ 150mm ctrs both sides',
+      '70x35 soffit battens fixed with Type 17 14G screws @ 300mm ctrs',
+      'Selected cladding on vented cavity, self supporting building paper'
+    ],
+    note:'70x45 H1.2 SG8 purlins @ 900mm ctrs max. Type 17 14G screw fixing @ 300mm ctrs.'
+  },
+  { num:'16', slug:'verandah', title:'Verandah Detail', icon:'sunrise', scale:'1:5',
+    short:'Bowmac bracket beam-to-post connection, verandah beam.',
+    callouts:[
+      'Selected roofing, selected gutter and timber or Colorsteel barge board',
+      '70x45 purlins fixed with Type 17 14G screws @ 300mm ctrs',
+      'Angled blocking with soffit lining below',
+      '70x35 soffit battens fixed with Type 17 14G screws @ 300mm ctrs',
+      'Verandah beam supported on a suitable Bowmac bracket, beam-to-post connection',
+      'Verandah post below the beam',
+      'Self supporting building paper over purlins'
+    ],
+    note:'70x45 H1.2 SG8 purlins @ 900mm ctrs max. Type 17 14G screw fixing @ 300mm ctrs.'
+  },
+  { num:'17', slug:'stringer', title:'Stringer Detail', icon:'trending-up', scale:'1:5',
+    short:'Engineered stringer bolted to load bearing, apron flashing.',
+    callouts:[
+      'Apron flashing to roofing manufacturer\'s specifications',
+      '70x45 purlins fixed with Type 17 14G screws @ 300mm ctrs',
+      'Engineered designed stringer bolted to the load-bearing wall',
+      'SIP screws @ 300mm ctrs',
+      'Internal timber framed load bearing wall supports the stringer',
+      'Self supporting building paper over purlins'
+    ],
+    note:'70x45 H1.2 SG8 purlins @ 900mm ctrs max. Type 17 14G screw fixing @ 300mm ctrs.'
+  },
+  { num:'18', slug:'bearer', title:'Bearer Detail', icon:'git-commit', scale:'1:10',
+    short:'Beam-to-post connection per NZS 3604:2011, skew nails & wire dogs.',
+    callouts:[
+      'SIP screws @ 300mm ctrs, centre-to-centre 200mm max',
+      'Timber bearer supports the SIP panel base',
+      'Beam-to-post connection: 2/100x3.75⌀ galv. skew nails with 2/4.9mm wire dogs (each side) — as per NZS 3604:2011',
+      'Timber pile below the bearer',
+      'Selected cladding on vented cavity'
+    ],
+    note:'Fixings as per NZS 3604:2011 — refer to a Chartered Professional Engineer for specific engineering design.'
+  },
+];
+
+/* ============ ICONS (hand-drawn, no external deps) ============ */
+const ICON_PATHS = {
+  wind: '<path d="M3 8h10a2.5 2.5 0 1 0-2-4"/><path d="M3 13h14a2.5 2.5 0 1 1-2 4"/><path d="M3 18h7"/>',
+  grid: '<circle cx="6" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="6" cy="18" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="18" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="18" r="1.4" fill="currentColor" stroke="none"/>',
+  layout: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>',
+  square: '<rect x="4" y="4" width="16" height="16" rx="2"/>',
+  'minus-square': '<rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="12" x2="16" y2="12"/>',
+  'corner-up-right': '<path d="M5 21V11a4 4 0 0 1 4-4h10"/><polyline points="15 11 19 7 15 3"/>',
+  'corner-down-left': '<path d="M19 3v10a4 4 0 0 1-4 4H5"/><polyline points="9 13 5 17 9 21"/>',
+  'corner-left-down': '<path d="M21 5H11a4 4 0 0 0-4 4v10"/><polyline points="11 15 7 19 3 15"/>',
+  home: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
+  shield: '<path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/>',
+  cloud: '<path d="M7 18a4 4 0 1 1 .7-7.94A5 5 0 0 1 17 11a3.5 3.5 0 0 1 0 7H7z"/>',
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/>',
+  droplet: '<path d="M12 2s7 8 7 13a7 7 0 0 1-14 0c0-5 7-13 7-13z"/>',
+  'link-2': '<rect x="2" y="9" width="7" height="6" rx="2"/><rect x="15" y="9" width="7" height="6" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/>',
+  anchor: '<circle cx="12" cy="5" r="2"/><line x1="12" y1="7" x2="12" y2="21"/><path d="M5 13a7 7 0 0 0 14 0"/><line x1="5" y1="13" x2="2" y2="13"/><line x1="22" y1="13" x2="19" y2="13"/>',
+  triangle: '<path d="M12 3l9 18H3z"/>',
+  flag: '<path d="M5 21V3"/><path d="M5 4h13l-3 4 3 4H5"/>',
+  umbrella: '<path d="M2 12a10 10 0 0 1 20 0z"/><line x1="12" y1="12" x2="12" y2="20"/><path d="M9 20a3 3 0 0 0 6 0"/>',
+  sunrise: '<line x1="2" y1="20" x2="22" y2="20"/><path d="M6 14a6 6 0 0 1 12 0"/><line x1="12" y1="4" x2="12" y2="8"/><line x1="4" y1="14" x2="6.5" y2="14"/><line x1="17.5" y1="14" x2="20" y2="14"/>',
+  'trending-up': '<polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/>',
+  'git-commit': '<circle cx="12" cy="12" r="3"/><line x1="1" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="23" y2="12"/>',
+  search: '<circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15.5" y2="15.5"/>',
+  'arrow-right': '<line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/>',
+  'arrow-left': '<line x1="20" y1="12" x2="4" y2="12"/><polyline points="10 6 4 12 10 18"/>',
+};
+
+function icon(name, cls){
+  const body = ICON_PATHS[name] || '';
+  return `<svg class="${cls||''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+}
+
+/* ============ RENDER ============ */
+const app = document.getElementById('app');
+
+function renderOverview(){
+  const glanceHtml = GLANCE.map(g => `
+    <div class="badge">${icon(g.icon)}<span>${g.label}</span></div>
+  `).join('');
+
+  const cardsHtml = DETAILS.map(d => `
+    <a class="card" href="#/detail/${d.slug}" data-title="${d.title.toLowerCase()}" data-short="${d.short.toLowerCase()}">
+      <div class="card-top">
+        <div class="card-icon">${icon(d.icon)}</div>
+        <div class="card-num">${d.num}</div>
+      </div>
+      <div>
+        <h3>${d.title}</h3>
+        <p>${d.short}</p>
+      </div>
+      <div class="card-arrow">View drawing ${icon('arrow-right')}</div>
+    </a>
+  `).join('');
+
+  app.innerHTML = `
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Structural Insulated Panels (SIPs)</div>
+        <h1>SIP Panel Design Manual</h1>
+        <p class="lead">Standard connection details for Super Panel SIP systems — sills, heads, corners, penetrations, roof lines and foundation fixings, drawn to NZBC E2/AS1 and NZS 3604.</p>
+        <div class="hero-meta">
+          <span><b>Rev 1.0</b> · Issued 2 Mar 2026</span>
+          <span><b>SP_DESIGN DETAILS_2026_V1.4</b></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="glance">
+      <div class="wrap">
+        <div class="section-label">Design manual at a glance</div>
+        <div class="badge-grid">${glanceHtml}</div>
+      </div>
+    </section>
+
+    <section class="catalog">
+      <div class="wrap">
+        <div class="catalog-head">
+          <div>
+            <div class="section-label">Reference drawings</div>
+            <h2>Browse all ${DETAILS.length} connection details</h2>
+          </div>
+          <div class="search-box">
+            ${icon('search')}
+            <input id="search" type="text" placeholder="Search details…" autocomplete="off" />
+          </div>
+        </div>
+        <div class="card-grid" id="cardGrid">${cardsHtml}</div>
+      </div>
+    </section>
+  `;
+
+  const search = document.getElementById('search');
+  const grid = document.getElementById('cardGrid');
+  search.addEventListener('input', () => {
+    const q = search.value.trim().toLowerCase();
+    let visible = 0;
+    grid.querySelectorAll('.card').forEach(card => {
+      const match = card.dataset.title.includes(q) || card.dataset.short.includes(q);
+      card.style.display = match ? '' : 'none';
+      if(match) visible++;
+    });
+    let empty = grid.querySelector('.no-results');
+    if(visible === 0){
+      if(!empty){
+        empty = document.createElement('div');
+        empty.className = 'no-results';
+        empty.textContent = 'No details match your search.';
+        grid.appendChild(empty);
+      }
+    } else if(empty){
+      empty.remove();
+    }
+  });
+}
+
+function renderDetail(slug){
+  const idx = DETAILS.findIndex(d => d.slug === slug);
+  if(idx === -1){ location.hash = '#/'; return; }
+  const d = DETAILS[idx];
+  const prev = DETAILS[(idx - 1 + DETAILS.length) % DETAILS.length];
+  const next = DETAILS[(idx + 1) % DETAILS.length];
+
+  const chipsHtml = DETAILS.map(x => `
+    <a class="sheet-chip ${x.slug === slug ? 'active' : ''}" href="#/detail/${x.slug}">${x.num} · ${x.title.replace(' Detail','')}</a>
+  `).join('');
+
+  const calloutsHtml = d.callouts.map(c => `<li>${c}</li>`).join('');
+
+  app.innerHTML = `
+    <section class="detail-page">
+      <div class="wrap">
+        <a class="back-link" href="#/">${icon('arrow-left')} All connection details</a>
+
+        <div class="sheet-strip">${chipsHtml}</div>
+
+        <div class="detail-head">
+          <div>
+            <h1>${d.title}</h1>
+          </div>
+          <div class="detail-tags">
+            <span class="tag blue">Sheet ${d.num} of 18</span>
+            <span class="tag">Scale ${d.scale}</span>
+            <span class="tag">NZBC E2/AS1</span>
+          </div>
+        </div>
+
+        <div class="detail-body">
+          <div>
+            <div class="drawing-frame">
+              <img src="images/${d.num}-${d.slug}.webp" alt="${d.title} technical drawing" loading="lazy" />
+            </div>
+            <div class="scale-caption">SIP ${d.title} — Scale ${d.scale} · Super Panel design drawing, Rev 1.0</div>
+          </div>
+
+          <div class="side-panel">
+            <div class="info-card">
+              <h4>Key callouts</h4>
+              <ul class="callout-list">${calloutsHtml}</ul>
+            </div>
+            <div class="note-card">
+              <h4>Fixing note</h4>
+              <p>${d.note}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-nav">
+          <a class="nav-btn prev" href="#/detail/${prev.slug}">${icon('arrow-left')}<span><span class="lbl">Previous</span>${prev.title}</span></a>
+          <a class="nav-btn next" href="#/detail/${next.slug}"><span><span class="lbl">Next</span>${next.title}</span>${icon('arrow-right')}</a>
+        </div>
+      </div>
+    </section>
+  `;
+
+  window.scrollTo(0, 0);
+}
+
+function router(){
+  const hash = location.hash || '#/';
+  const match = hash.match(/^#\/detail\/(.+)$/);
+  if(match){
+    renderDetail(match[1]);
+  } else {
+    renderOverview();
+  }
+}
+
+window.addEventListener('hashchange', router);
+window.addEventListener('DOMContentLoaded', router);
+router();
+</script>
+
+</body>
+</html>
