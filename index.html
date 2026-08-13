@@ -163,7 +163,7 @@
   .downloads h2{ font-size:26px; margin-top:6px; max-width:560px; }
   .downloads-lead{ margin-top:12px; max-width:560px; font-size:14.5px; color:#4a5578; }
   .format-grid{
-    margin-top:28px; display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:16px;
+    margin-top:28px; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:16px;
   }
   .format-card{
     background:#fff; border:1px solid var(--color-navy-border); border-radius:10px;
@@ -171,10 +171,10 @@
     box-shadow:0 2px 12px rgba(1,22,72,0.05);
   }
   .format-icon{
-    width:44px; height:44px; border-radius:9px; background:var(--color-mist);
+    width:52px; height:52px;
     display:flex; align-items:center; justify-content:center; margin-bottom:6px;
   }
-  .format-icon svg{ width:22px; height:22px; color:var(--color-blue); }
+  .format-icon img{ width:100%; height:100%; object-fit:contain; border-radius:11px; }
   .format-name{ font-size:15px; font-weight:500; letter-spacing:-0.02em; }
   .format-ext{ font-size:12.5px; color:#8b98b8; font-weight:300; margin-bottom:10px; }
   .format-btn{
@@ -337,14 +337,13 @@ const GLANCE = [
   { icon:'calendar', label:'10 year warranty' },
 ];
 
-/* Neutral file-type badges — not the software vendors' trademarked logos.
-   Swap in real download links under `file` once CAD/BIM exports are ready. */
+/* Official vendor marks, used to indicate file-format compatibility only —
+   swap in real download links under `file` once CAD/BIM exports are ready. */
 const DOWNLOAD_FORMATS = [
-  { name:'Revit',       ext:'.rfa', note:'BIM family file', file:null },
-  { name:'AutoCAD',     ext:'.dwg', note:'2D CAD block',    file:null },
-  { name:'SketchUp',    ext:'.skp', note:'3D model',        file:null },
-  { name:'ArchiCAD',    ext:'.pln', note:'GDL object',      file:null },
-  { name:'Vectorworks', ext:'.vwx', note:'3D symbol',       file:null },
+  { name:'Revit',    ext:'.rfa', note:'BIM family file', file:null, logo:'images/logos/revit.png' },
+  { name:'AutoCAD',  ext:'.dwg', note:'2D CAD block',    file:null, logo:'images/logos/autocad.png' },
+  { name:'SketchUp', ext:'.skp', note:'3D model',        file:null, logo:'images/logos/sketchup.png' },
+  { name:'ArchiCAD', ext:'.pln', note:'GDL object',      file:null, logo:'images/logos/archicad.png' },
 ];
 
 const DETAILS = [
@@ -619,7 +618,7 @@ function renderOverview(){
 
   const formatsHtml = DOWNLOAD_FORMATS.map(f => `
     <div class="format-card">
-      <div class="format-icon">${icon('file')}</div>
+      <div class="format-icon"><img src="${f.logo}" alt="${f.name} logo" /></div>
       <div class="format-name">${f.name}</div>
       <div class="format-ext">${f.ext} &middot; ${f.note}</div>
       ${f.file
